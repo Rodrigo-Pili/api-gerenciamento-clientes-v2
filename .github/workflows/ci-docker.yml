@@ -2,17 +2,16 @@ name: CI/CD Pipeline com Docker
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, develop, master ]
     tags: [ 'v*' ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main, develop, master ]
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  # ==================== BUILD E TESTES ====================
   build:
     runs-on: ubuntu-latest
     name: 🔨 Build e Testes
@@ -53,7 +52,6 @@ jobs:
           name: jacoco-report
           path: target/site/jacoco/
 
-  # ==================== BUILD E PUSH DOCKER ====================
   docker:
     needs: build
     runs-on: ubuntu-latest
@@ -110,10 +108,10 @@ jobs:
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
           cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
 
-      - name: 📊 Resumo da Publicação
+      - name: Resumo da Publicação
         run: |
           echo "✅ Docker Image publicado com sucesso!"
           echo ""
           echo "📦 Imagem: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
-          echo "🏷️  Tag: latest"
-          echo "🔗 Link: https://github.com/users/${{ github.actor }}/packages/container/${{ env.IMAGE_NAME }}"
+          echo "🏷️ Tag: latest"
+          echo "🔗 Link: https://github.com/${{ github.repository }}/pkgs/container/"
