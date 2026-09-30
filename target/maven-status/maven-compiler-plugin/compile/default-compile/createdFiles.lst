@@ -1,0 +1,17 @@
+com\rodrigo\portfolio\gerencimento_clientes\domain\usecases\impl\ClienteServiceImpl.class
+com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\dtos\CriadoClienteResponseDTO$CriadoClienteResponseDTOBuilder.class
+com\rodrigo\portfolio\gerencimento_clientes\domain\enums\StatusClienteEnum.class
+com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\dtos\CriarClienteRequestDTO.class
+com\rodrigo\portfolio\gerencimento_clientes\domain\entities\Cliente.class
+com\rodrigo\portfolio\gerencimento_clientes\infra\repositorys\ClienteRepository.class
+com\rodrigo\portfolio\gerencimento_clientes\GerencimentoClientesApplication.class
+com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\exceptions\dtos\ErroResponseDTO.class
+com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\dtos\AtualizarClienteRequestDTO$AtualizarClienteRequestDTOBuilder.class
+com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\dtos\CriarClienteRequestDTO$CriarClienteRequestDTOBuilder.class
+com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\exceptions\GlobalExceptionHandler.class
+com\rodrigo\portfolio\gerencimento_clientes\domain\usecases\ClienteService.class
+com\rodrigo\portfolio\gerencimento_clientes\domain\entities\Cliente$ClienteBuilder.class
+com\rodrigo\portfolio\gerencimento_clientes\infra\config\OpenAPIConfig.class
+com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\ClienteController.class
+com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\dtos\AtualizarClienteRequestDTO.class
+com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\dtos\CriadoClienteResponseDTO.class

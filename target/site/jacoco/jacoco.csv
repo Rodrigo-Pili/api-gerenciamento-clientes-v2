@@ -1,0 +1,16 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers,ClienteController,0,112,0,2,0,35,0,8,0,7
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.exceptions.dtos,ErroResponseDTO,164,21,30,0,3,7,24,4,9,4
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes,GerencimentoClientesApplication,5,3,0,0,2,1,1,1,1,1
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.exceptions,GlobalExceptionHandler,51,67,12,0,14,17,8,6,2,6
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.domain.enums,StatusClienteEnum,3,32,0,0,1,7,1,2,1,2
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.domain.usecases.impl,ClienteServiceImpl,0,141,0,6,0,28,0,16,0,13
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.domain.entities,Cliente.ClienteBuilder,16,56,0,0,0,1,1,9,1,9
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.domain.entities,Cliente,250,97,56,6,3,10,37,16,7,15
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.infra.config,OpenAPIConfig,43,0,0,0,16,0,2,0,2,0
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.dtos,AtualizarClienteRequestDTO,131,40,30,0,0,7,19,9,4,9
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.dtos,CriadoClienteResponseDTO,294,73,62,0,2,18,43,10,12,10
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.dtos,CriadoClienteResponseDTO.CriadoClienteResponseDTOBuilder,16,56,0,0,0,1,1,9,1,9
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.dtos,CriarClienteRequestDTO.CriarClienteRequestDTOBuilder,10,35,0,0,0,1,1,6,1,6
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.dtos,AtualizarClienteRequestDTO.AtualizarClienteRequestDTOBuilder,8,28,0,0,0,1,1,5,1,5
+Gerenciamento Clientes,com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.dtos,CriarClienteRequestDTO,164,50,38,0,0,8,23,11,4,11

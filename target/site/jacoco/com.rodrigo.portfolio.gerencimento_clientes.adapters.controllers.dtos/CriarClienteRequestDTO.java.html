@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CriarClienteRequestDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Gerenciamento Clientes</a> &gt; <a href="index.source.html" class="el_package">com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.dtos</a> &gt; <span class="el_source">CriarClienteRequestDTO.java</span></div><h1>CriarClienteRequestDTO.java</h1><pre class="source lang-java linenums">package com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.dtos;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+<span class="pc bnc" id="L10" title="All 38 branches missed.">@Data</span>
+<span class="fc" id="L11">@NoArgsConstructor</span>
+<span class="fc" id="L12">@AllArgsConstructor</span>
+<span class="pc" id="L13">@Builder</span>
+@Schema(description = &quot;DTO para criar um novo cliente&quot;)
+public class CriarClienteRequestDTO {
+
+    @NotBlank(message = &quot;Nome é obrigatório&quot;)
+    @Size(min = 3, max = 150, message = &quot;Nome deve ter entre 3 e 150 caracteres&quot;)
+    @Schema(description = &quot;Nome completo do cliente&quot;, example = &quot;João Silva&quot;, minLength = 3, maxLength = 150)
+<span class="fc" id="L20">    private String nome;</span>
+
+    @NotBlank(message = &quot;CPF é obrigatório&quot;)
+    @Size(min = 11, max = 11, message = &quot;CPF deve ter 11 dígitos&quot;)
+    @Pattern(regexp = &quot;\\d{11}&quot;, message = &quot;CPF deve conter apenas números&quot;)
+    @Schema(description = &quot;CPF do cliente (11 dígitos)&quot;, example = &quot;12345678901&quot;)
+<span class="fc" id="L26">    private String cpf;</span>
+
+    @NotBlank(message = &quot;Email é obrigatório&quot;)
+    @Email(message = &quot;Email inválido&quot;)
+    @Schema(description = &quot;Email do cliente&quot;, example = &quot;joao@email.com&quot;, format = &quot;email&quot;)
+<span class="fc" id="L31">    private String email;</span>
+
+    @NotBlank(message = &quot;Telefone é obrigatório&quot;)
+    @Size(min = 10, max = 20, message = &quot;Telefone inválido&quot;)
+    @Schema(description = &quot;Telefone do cliente&quot;, example = &quot;11999999999&quot;, minLength = 10, maxLength = 20)
+<span class="fc" id="L36">    private String telefone;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

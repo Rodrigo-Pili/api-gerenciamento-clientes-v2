@@ -1,0 +1,13 @@
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\exceptions\GlobalExceptionHandler.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\GerencimentoClientesApplication.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\domain\usecases\ClienteService.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\ClienteController.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\dtos\CriadoClienteResponseDTO.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\dtos\AtualizarClienteRequestDTO.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\exceptions\dtos\ErroResponseDTO.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\domain\usecases\impl\ClienteServiceImpl.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\dtos\CriarClienteRequestDTO.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\infra\config\OpenAPIConfig.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\domain\entities\Cliente.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\domain\enums\StatusClienteEnum.java
+D:\workspaces\portfolio\api-simples-java\gerenciador-clientes\gerencimento-clientes\src\main\java\com\rodrigo\portfolio\gerencimento_clientes\infra\repositorys\ClienteRepository.java

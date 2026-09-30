@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClienteServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Gerenciamento Clientes</a> &gt; <a href="index.source.html" class="el_package">com.rodrigo.portfolio.gerencimento_clientes.domain.usecases.impl</a> &gt; <span class="el_source">ClienteServiceImpl.java</span></div><h1>ClienteServiceImpl.java</h1><pre class="source lang-java linenums">package com.rodrigo.portfolio.gerencimento_clientes.domain.usecases.impl;
+
+import com.rodrigo.portfolio.gerencimento_clientes.domain.entities.Cliente;
+import com.rodrigo.portfolio.gerencimento_clientes.domain.enums.StatusClienteEnum;
+import com.rodrigo.portfolio.gerencimento_clientes.domain.usecases.ClienteService;
+import com.rodrigo.portfolio.gerencimento_clientes.infra.repositorys.ClienteRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+<span class="fc" id="L15">@RequiredArgsConstructor</span>
+<span class="fc" id="L16">@Slf4j</span>
+public class ClienteServiceImpl implements ClienteService {
+    private final ClienteRepository clienteRepository;
+
+    @Override
+    public Cliente criarCliente(Cliente cliente) {
+<span class="fc bfc" id="L22" title="All 2 branches covered.">        if (cpfJaExiste(cliente.getCpf())) {</span>
+<span class="fc" id="L23">            throw new IllegalArgumentException(&quot;CPF já cadastrado&quot;);</span>
+        }
+<span class="fc bfc" id="L25" title="All 2 branches covered.">        if (emailJaExiste(cliente.getEmail())) {</span>
+<span class="fc" id="L26">            throw new IllegalArgumentException(&quot;Email já cadastrado&quot;);</span>
+        }
+<span class="fc" id="L28">        cliente.setStatus(StatusClienteEnum.ATIVO);</span>
+<span class="fc" id="L29">        log.info(&quot;Criando cliente: {}&quot;, cliente.getNome());</span>
+<span class="fc" id="L30">        return clienteRepository.save(cliente);</span>
+    }
+
+    @Override
+    public Cliente buscarPorCpf(String cpf) {
+<span class="fc" id="L35">        return clienteRepository.findByCpf(cpf)</span>
+<span class="fc" id="L36">                .orElseThrow(() -&gt; new RuntimeException(&quot;Cliente não encontrado com CPF: &quot; + cpf));</span>
+    }
+
+    @Override
+    @Transactional
+    public Cliente atualizarCliente(Long id, Cliente clienteAtualizado) {
+<span class="fc" id="L42">        Cliente clienteExistente = buscarPorId(id);</span>
+<span class="fc" id="L43">        clienteExistente.setNome(clienteAtualizado.getNome());</span>
+<span class="fc" id="L44">        clienteExistente.setTelefone(clienteAtualizado.getTelefone());</span>
+<span class="fc" id="L45">        clienteExistente.setEmail(clienteAtualizado.getEmail());</span>
+<span class="fc" id="L46">        log.info(&quot;Atualizando cliente: {}&quot;, id);</span>
+<span class="fc" id="L47">        return clienteRepository.save(clienteExistente);</span>
+    }
+
+    @Override
+    public Cliente buscarPorId(Long id) {
+<span class="fc" id="L52">        return clienteRepository.findById(id)</span>
+<span class="fc" id="L53">                .orElseThrow(() -&gt; new RuntimeException(&quot;Cliente não encontrado com ID: &quot; + id));</span>
+    }
+
+    @Override
+    public List&lt;Cliente&gt; listarTodos() {
+<span class="fc" id="L58">        return clienteRepository.findAll();</span>
+    }
+
+    @Override
+    @Transactional
+    public void deletarCliente(Long id) {
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (!clienteRepository.existsById(id)) {</span>
+<span class="fc" id="L65">            throw new RuntimeException(&quot;Cliente não encontrado com ID: &quot; + id);</span>
+        }
+<span class="fc" id="L67">        log.info(&quot;Deletando cliente: {}&quot;, id);</span>
+<span class="fc" id="L68">        clienteRepository.deleteById(id);</span>
+<span class="fc" id="L69">    }</span>
+
+    @Override
+    public boolean cpfJaExiste(String cpf) {
+<span class="fc" id="L73">        return clienteRepository.findByCpf(cpf).isPresent();</span>
+    }
+
+    @Override
+    public boolean emailJaExiste(String email) {
+<span class="fc" id="L78">        return clienteRepository.findByEmail(email).isPresent();</span>
+    }
+
+    @Override
+    public List&lt;Cliente&gt; listarPorStatus(StatusClienteEnum status) {
+<span class="fc" id="L83">        return clienteRepository.findByStatus(status);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

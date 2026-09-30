@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClienteController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Gerenciamento Clientes</a> &gt; <a href="index.source.html" class="el_package">com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers</a> &gt; <span class="el_source">ClienteController.java</span></div><h1>ClienteController.java</h1><pre class="source lang-java linenums">package com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers;
+
+import com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.dtos.AtualizarClienteRequestDTO;
+import com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.dtos.CriadoClienteResponseDTO;
+import com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.dtos.CriarClienteRequestDTO;
+import com.rodrigo.portfolio.gerencimento_clientes.domain.entities.Cliente;
+import com.rodrigo.portfolio.gerencimento_clientes.domain.enums.StatusClienteEnum;
+import com.rodrigo.portfolio.gerencimento_clientes.domain.usecases.ClienteService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
+@RequestMapping(&quot;/api/clientes&quot;)
+<span class="fc" id="L28">@Slf4j</span>
+@Tag(name = &quot;Clientes&quot;, description = &quot;API para gerenciar clientes&quot;)
+<span class="fc" id="L30">public class ClienteController {</span>
+
+    @Autowired
+    private ClienteService clienteService;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = &quot;Criar novo cliente&quot;, description = &quot;Cria um novo cliente no sistema&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = &quot;201&quot;, description = &quot;Cliente criado com sucesso&quot;,
+                    content = @Content(mediaType = &quot;application/json&quot;, schema = @Schema(implementation = CriadoClienteResponseDTO.class))),
+            @ApiResponse(responseCode = &quot;400&quot;, description = &quot;Dados inválidos ou CPF/Email duplicado&quot;),
+            @ApiResponse(responseCode = &quot;500&quot;, description = &quot;Erro interno do servidor&quot;)
+    })
+    public ResponseEntity&lt;CriadoClienteResponseDTO&gt; criarCliente(
+            @Valid @RequestBody CriarClienteRequestDTO dto) {
+<span class="fc" id="L46">        log.info(&quot;POST /api/clientes - Criando novo cliente&quot;);</span>
+<span class="fc" id="L47">        Cliente cliente = Cliente.builder()</span>
+<span class="fc" id="L48">                .nome(dto.getNome())</span>
+<span class="fc" id="L49">                .cpf(dto.getCpf())</span>
+<span class="fc" id="L50">                .email(dto.getEmail())</span>
+<span class="fc" id="L51">                .telefone(dto.getTelefone())</span>
+<span class="fc" id="L52">                .build();</span>
+
+<span class="fc" id="L54">        Cliente clienteCriado = clienteService.criarCliente(cliente);</span>
+<span class="fc" id="L55">        return ResponseEntity</span>
+<span class="fc" id="L56">                .status(HttpStatus.CREATED)</span>
+<span class="fc" id="L57">                .body(CriadoClienteResponseDTO.fromEntity(clienteCriado));</span>
+    }
+
+    @GetMapping
+    @Operation(summary = &quot;Listar clientes&quot;, description = &quot;Lista todos os clientes ou filtra por status&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Lista de clientes retornada com sucesso&quot;),
+            @ApiResponse(responseCode = &quot;500&quot;, description = &quot;Erro interno do servidor&quot;)
+    })
+    public ResponseEntity&lt;List&lt;CriadoClienteResponseDTO&gt;&gt; listarTodos(
+            @Parameter(description = &quot;Status do cliente para filtrar (opcional)&quot;)
+            @RequestParam(required = false) StatusClienteEnum status) {
+<span class="fc" id="L69">        log.info(&quot;GET /api/clientes - Listando clientes&quot;);</span>
+        List&lt;Cliente&gt; clientes;
+
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (status != null) {</span>
+<span class="fc" id="L73">            clientes = clienteService.listarPorStatus(status);</span>
+        } else {
+<span class="fc" id="L75">            clientes = clienteService.listarTodos();</span>
+        }
+
+<span class="fc" id="L78">        List&lt;CriadoClienteResponseDTO&gt; dtos = clientes.stream()</span>
+<span class="fc" id="L79">                .map(CriadoClienteResponseDTO::fromEntity)</span>
+<span class="fc" id="L80">                .collect(Collectors.toList());</span>
+
+<span class="fc" id="L82">        return ResponseEntity.ok(dtos);</span>
+    }
+
+    @GetMapping(&quot;/cpf/{cpf}&quot;)
+    @Operation(summary = &quot;Buscar cliente por CPF&quot;, description = &quot;Busca um cliente específico pelo seu CPF&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Cliente encontrado&quot;,
+                    content = @Content(mediaType = &quot;application/json&quot;, schema = @Schema(implementation = CriadoClienteResponseDTO.class))),
+            @ApiResponse(responseCode = &quot;404&quot;, description = &quot;Cliente não encontrado&quot;),
+            @ApiResponse(responseCode = &quot;500&quot;, description = &quot;Erro interno do servidor&quot;)
+    })
+    public ResponseEntity&lt;CriadoClienteResponseDTO&gt; buscarPorCpf(
+            @Parameter(description = &quot;CPF do cliente&quot;, example = &quot;12345678901&quot;)
+            @PathVariable String cpf) {
+<span class="fc" id="L96">        log.info(&quot;GET /api/clientes/cpf/{} - Buscando cliente por CPF&quot;, cpf);</span>
+<span class="fc" id="L97">        Cliente cliente = clienteService.buscarPorCpf(cpf);</span>
+<span class="fc" id="L98">        return ResponseEntity.ok(CriadoClienteResponseDTO.fromEntity(cliente));</span>
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    @Operation(summary = &quot;Atualizar cliente&quot;, description = &quot;Atualiza os dados de um cliente existente&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Cliente atualizado com sucesso&quot;,
+                    content = @Content(mediaType = &quot;application/json&quot;, schema = @Schema(implementation = CriadoClienteResponseDTO.class))),
+            @ApiResponse(responseCode = &quot;400&quot;, description = &quot;Dados inválidos&quot;),
+            @ApiResponse(responseCode = &quot;404&quot;, description = &quot;Cliente não encontrado&quot;),
+            @ApiResponse(responseCode = &quot;500&quot;, description = &quot;Erro interno do servidor&quot;)
+    })
+    public ResponseEntity&lt;CriadoClienteResponseDTO&gt; atualizarCliente(
+            @Parameter(description = &quot;ID do cliente&quot;, example = &quot;1&quot;)
+            @PathVariable Long id,
+            @Valid @RequestBody AtualizarClienteRequestDTO dto) {
+<span class="fc" id="L114">        log.info(&quot;PUT /api/clientes/{} - Atualizando cliente&quot;, id);</span>
+<span class="fc" id="L115">        Cliente cliente = Cliente.builder()</span>
+<span class="fc" id="L116">                .nome(dto.getNome())</span>
+<span class="fc" id="L117">                .email(dto.getEmail())</span>
+<span class="fc" id="L118">                .telefone(dto.getTelefone())</span>
+<span class="fc" id="L119">                .build();</span>
+
+<span class="fc" id="L121">        Cliente clienteAtualizado = clienteService.atualizarCliente(id, cliente);</span>
+<span class="fc" id="L122">        return ResponseEntity.ok(CriadoClienteResponseDTO.fromEntity(clienteAtualizado));</span>
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    @Operation(summary = &quot;Deletar cliente&quot;, description = &quot;Remove um cliente do sistema&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = &quot;204&quot;, description = &quot;Cliente deletado com sucesso&quot;),
+            @ApiResponse(responseCode = &quot;404&quot;, description = &quot;Cliente não encontrado&quot;),
+            @ApiResponse(responseCode = &quot;500&quot;, description = &quot;Erro interno do servidor&quot;)
+    })
+    public ResponseEntity&lt;Void&gt; deletarCliente(
+            @Parameter(description = &quot;ID do cliente&quot;, example = &quot;1&quot;)
+            @PathVariable Long id) {
+<span class="fc" id="L135">        log.info(&quot;DELETE /api/clientes/{} - Deletando cliente&quot;, id);</span>
+<span class="fc" id="L136">        clienteService.deletarCliente(id);</span>
+<span class="fc" id="L137">        return ResponseEntity.noContent().build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

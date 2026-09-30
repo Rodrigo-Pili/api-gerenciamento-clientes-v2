@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GlobalExceptionHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Gerenciamento Clientes</a> &gt; <a href="index.source.html" class="el_package">com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.exceptions</a> &gt; <span class="el_source">GlobalExceptionHandler.java</span></div><h1>GlobalExceptionHandler.java</h1><pre class="source lang-java linenums">package com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.exceptions;
+
+import com.rodrigo.portfolio.gerencimento_clientes.adapters.controllers.exceptions.dtos.ErroResponseDTO;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.stream.Collectors;
+
+@RestControllerAdvice
+<span class="fc" id="L15">@Slf4j</span>
+<span class="fc" id="L16">public class GlobalExceptionHandler {</span>
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity&lt;ErroResponseDTO&gt; handleDataIntegrityViolation(
+            DataIntegrityViolationException ex) {
+
+<span class="nc" id="L21">        log.error(&quot;Violação de integridade de dados: {}&quot;, ex.getMessage());</span>
+
+<span class="nc" id="L23">        String mensagem = extrairMensagemErro(ex);</span>
+
+<span class="nc" id="L25">        return ResponseEntity</span>
+<span class="nc" id="L26">                .status(HttpStatus.CONFLICT)</span>
+<span class="nc" id="L27">                .body(new ErroResponseDTO(&quot;Dados duplicados&quot;, mensagem));</span>
+    }
+
+    private String extrairMensagemErro(DataIntegrityViolationException ex) {
+<span class="nc" id="L31">        String msg = ex.getMessage();</span>
+
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (msg != null) {</span>
+<span class="nc bnc" id="L34" title="All 4 branches missed.">            if (msg.contains(&quot;clientes.cpf&quot;) || msg.contains(&quot;clientes_cpf&quot;)) {</span>
+<span class="nc" id="L35">                return &quot;CPF já cadastrado no sistema&quot;;</span>
+            }
+<span class="nc bnc" id="L37" title="All 4 branches missed.">            if (msg.contains(&quot;clientes.email&quot;) || msg.contains(&quot;clientes_email&quot;)) {</span>
+<span class="nc" id="L38">                return &quot;Email já cadastrado no sistema&quot;;</span>
+            }
+<span class="nc bnc" id="L40" title="All 2 branches missed.">            if (msg.contains(&quot;UNIQUE constraint failed&quot;)) {</span>
+<span class="nc" id="L41">                return &quot;Este valor já existe no sistema&quot;;</span>
+            }
+        }
+
+<span class="nc" id="L45">        return &quot;Erro de integridade de dados. Verifique os dados enviados.&quot;;</span>
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity&lt;ErroResponseDTO&gt; handleIllegalArgumentException(
+            IllegalArgumentException ex) {
+<span class="fc" id="L51">        log.error(&quot;Erro de validação: {}&quot;, ex.getMessage());</span>
+<span class="fc" id="L52">        return ResponseEntity</span>
+<span class="fc" id="L53">                .status(HttpStatus.BAD_REQUEST)</span>
+<span class="fc" id="L54">                .body(new ErroResponseDTO(&quot;Erro de validação&quot;, ex.getMessage()));</span>
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity&lt;ErroResponseDTO&gt; handleRuntimeException(RuntimeException ex) {
+<span class="fc" id="L59">        log.error(&quot;Erro interno: {}&quot;, ex.getMessage());</span>
+<span class="fc" id="L60">        return ResponseEntity</span>
+<span class="fc" id="L61">                .status(HttpStatus.NOT_FOUND)</span>
+<span class="fc" id="L62">                .body(new ErroResponseDTO(&quot;Não encontrado&quot;, ex.getMessage()));</span>
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity&lt;ErroResponseDTO&gt; handleValidationException(
+            MethodArgumentNotValidException ex) {
+<span class="fc" id="L68">        String mensagem = ex.getBindingResult().getFieldErrors().stream()</span>
+<span class="fc" id="L69">                .map(error -&gt; error.getField() + &quot;: &quot; + error.getDefaultMessage())</span>
+<span class="fc" id="L70">                .collect(Collectors.joining(&quot;, &quot;));</span>
+
+<span class="fc" id="L72">        log.error(&quot;Erro de validação de entrada: {}&quot;, mensagem);</span>
+<span class="fc" id="L73">        return ResponseEntity</span>
+<span class="fc" id="L74">                .status(HttpStatus.BAD_REQUEST)</span>
+<span class="fc" id="L75">                .body(new ErroResponseDTO(&quot;Erro de validação&quot;, mensagem));</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
