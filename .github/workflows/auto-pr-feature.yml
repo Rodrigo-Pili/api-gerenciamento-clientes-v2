@@ -1,0 +1,78 @@
+name: Auto PR - Feature para Main
+
+on:
+  push:
+    branches: [ 'feature/**' ]
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    name: 🚀 Abrir PR Automática
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Compilar projeto
+        run: mvn clean compile
+
+      - name: Rodar testes
+        run: mvn test
+
+      - name: Build da aplicação
+        run: mvn package -DskipTests
+
+      - name: Extrair nome da branch
+        id: branch
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          echo "name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          FEATURE_NAME=${BRANCH_NAME#feature/}
+          echo "feature=$FEATURE_NAME" >> $GITHUB_OUTPUT
+
+      - name: Criar Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'Merge ${{ steps.branch.outputs.name }} para main'
+          title: '✨ Feature: ${{ steps.branch.outputs.feature }}'
+          body: |
+            ## 🎯 Feature: ${{ steps.branch.outputs.feature }}
+            
+            ### ✅ Validações Executadas
+            - ✅ Build: OK
+            - ✅ Testes: OK
+            - ✅ Cobertura: Gerada
+            
+            ### 📋 Checklist
+            - [ ] Código revisado
+            - [ ] Testes adicionados/atualizados
+            - [ ] Documentação atualizada
+            - [ ] Sem breaking changes
+            
+            ### 🔗 Relacionado a
+            - Branch: `${{ steps.branch.outputs.name }}`
+            - Desenvolvido automaticamente pelo GitHub Actions
+            
+            ---
+            
+            _Aberta automaticamente quando push em branch feature/*_
+          branch: ${{ steps.branch.outputs.name }}
+          base: main
+          delete-branch: false
+          assignees: Rodrigo-Pili
+          reviewers: Rodrigo-Pili
+          labels: |
+            feature
+            automated
+            review-needed
+          draft: false
