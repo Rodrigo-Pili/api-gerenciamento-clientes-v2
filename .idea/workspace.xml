@@ -4,7 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdd43773-0a52-4c79-9d27-b67b8b101de9" name="Changes" comment="" />
+    <list default="true" id="fdd43773-0a52-4c79-9d27-b67b8b101de9" name="Changes" comment="test workflow pr automatico">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/GerencimentoClientesApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/adapters/controllers/ClienteController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/adapters/controllers/dtos/AtualizarClienteRequestDTO$AtualizarClienteRequestDTOBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/adapters/controllers/dtos/AtualizarClienteRequestDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/adapters/controllers/dtos/CriarClienteRequestDTO$CriarClienteRequestDTOBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/adapters/controllers/dtos/CriarClienteRequestDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/adapters/controllers/exceptions/GlobalExceptionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/domain/enums/StatusClienteEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/domain/usecases/ClienteService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/domain/usecases/impl/ClienteServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/infra/config/OpenAPIConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/rodrigo/portfolio/gerencimento_clientes/infra/repositorys/ClienteRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/branchfc.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/branchnc.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/branchpc.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/bundle.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/class.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/down.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/greenbar.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/group.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/method.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/package.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/prettify.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/prettify.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/redbar.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/report.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/report.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/session.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/sort.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/sort.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/source.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/up.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/rodrigo/portfolio/gerencimento_clientes/adapters/controllers/ClienteControllerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/rodrigo/portfolio/gerencimento_clientes/domain/usecases/impl/ClienteServiceImplTest.class" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,7 +83,8 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "git-widget-placeholder": "feature/test__pr__automatico",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feature/final-test",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/workspaces/portfolio/api-simples-java/gerenciador-clientes/gerencimento-clientes",
     "project.structure.last.edited": "Project",
@@ -89,6 +128,44 @@
       <option name="presentableId" value="Default" />
       <updated>1790526169473</updated>
     </task>
+    <task id="LOCAL-00001" summary="Simplify auto PR workflow">
+      <option name="closed" value="true" />
+      <created>1791500557320</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1791500557320</updated>
+    </task>
+    <task id="LOCAL-00002" summary="test workflow pr automatico">
+      <option name="closed" value="true" />
+      <created>1791500717157</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1791500717157</updated>
+    </task>
+    <task id="LOCAL-00003" summary="test workflow pr automatico">
+      <option name="closed" value="true" />
+      <created>1791500870625</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1791500870625</updated>
+    </task>
+    <task id="LOCAL-00004" summary="test workflow pr automatico">
+      <option name="closed" value="true" />
+      <created>1791502086449</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1791502086449</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Simplify auto PR workflow" />
+    <MESSAGE value="test workflow pr automatico" />
+    <option name="LAST_COMMIT_MESSAGE" value="test workflow pr automatico" />
   </component>
 </project>
