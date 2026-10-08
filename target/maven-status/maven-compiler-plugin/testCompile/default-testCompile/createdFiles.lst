@@ -1,2 +1,2 @@
-com\rodrigo\portfolio\gerencimento_clientes\adapters\controllers\ClienteControllerTest.class
-com\rodrigo\portfolio\gerencimento_clientes\domain\usecases\impl\ClienteServiceImplTest.class
+com/rodrigo/portfolio/gerencimento_clientes/domain/usecases/impl/ClienteServiceImplTest.class
+com/rodrigo/portfolio/gerencimento_clientes/adapters/controllers/ClienteControllerTest.class
