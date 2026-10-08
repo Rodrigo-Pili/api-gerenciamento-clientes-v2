@@ -71,7 +71,7 @@ jobs:
           base: main
           delete-branch: false
           assignees: Rodrigo-Pili
-          reviewers: Rodrigo-Pili
+          #reviewers: Rodrigo-Pili
           labels: |
             feature
             automated
