@@ -66,6 +66,10 @@ jobs:
       - name: Checkout código
         uses: actions/checkout@v4
 
+      - name: Converter nome da imagem para minúsculas
+        run: |
+          echo "IMAGE_NAME_LC=${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
+
       - name: Setup Java 17
         uses: actions/setup-java@v4
         with:
@@ -90,7 +94,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}
           tags: |
             type=ref,event=branch
             type=semver,pattern={{version}}
@@ -105,13 +109,13 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}:buildcache,mode=max
 
       - name: Resumo da Publicação
         run: |
           echo "✅ Docker Image publicado com sucesso!"
           echo ""
-          echo "📦 Imagem: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+          echo "📦 Imagem: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LC }}"
           echo "🏷️ Tag: latest"
           echo "🔗 Link: https://github.com/${{ github.repository }}/pkgs/container/"
