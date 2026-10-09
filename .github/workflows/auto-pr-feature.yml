@@ -2,19 +2,23 @@ name: Auto PR - Feature para Main
 
 on:
   push:
-    branches: [ 'feature/**' ]
+    branches:
+      - 'feature/**'
+
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   create-pr:
     runs-on: ubuntu-latest
-    name: 🚀 Abrir PR Automática
+    name: 🚀 Validar e Abrir PR
 
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.AUTO_PR_TOKEN }}
 
       - name: Setup Java 17
         uses: actions/setup-java@v4
@@ -34,46 +38,49 @@ jobs:
 
       - name: Extrair nome da branch
         id: branch
+        shell: bash
         run: |
-          BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          echo "name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-          FEATURE_NAME=${BRANCH_NAME#feature/}
-          echo "feature=$FEATURE_NAME" >> $GITHUB_OUTPUT
+          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          FEATURE_NAME="${BRANCH_NAME#feature/}"
+          
+          echo "name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
+          echo "feature=$FEATURE_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Criar Pull Request
-        uses: peter-evans/create-pull-request@v5
-        with:
-          token: ${{ secrets.AUTO_PR_TOKEN }}
-          commit-message: 'Merge ${{ steps.branch.outputs.name }} para main'
-          title: '✨ Feature: ${{ steps.branch.outputs.feature }}'
-          body: |
-            ## 🎯 Feature: ${{ steps.branch.outputs.feature }}
-            
-            ### ✅ Validações Executadas
-            - ✅ Build: OK
-            - ✅ Testes: OK
-            - ✅ Cobertura: Gerada
-            
-            ### 📋 Checklist
-            - [ ] Código revisado
-            - [ ] Testes adicionados/atualizados
-            - [ ] Documentação atualizada
-            - [ ] Sem breaking changes
-            
-            ### 🔗 Relacionado a
-            - Branch: `${{ steps.branch.outputs.name }}`
-            - Desenvolvido automaticamente pelo GitHub Actions
-            
-            ---
-            
-            _Aberta automaticamente quando push em branch feature/*_
-          branch: ${{ steps.branch.outputs.name }}
-          base: main
-          delete-branch: false
-          assignees: Rodrigo-Pili
-          #reviewers: Rodrigo-Pili
-          labels: |
-            feature
-            automated
-            review-needed
-          draft: false
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ steps.branch.outputs.name }}
+          FEATURE_NAME: ${{ steps.branch.outputs.feature }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          gh pr create \
+            --repo "$REPOSITORY" \
+            --base main \
+            --head "$BRANCH_NAME" \
+            --title "✨ Feature: $FEATURE_NAME" \
+            --body "## 🎯 Feature: $FEATURE_NAME
+          
+          ### ✅ Validações Executadas
+          - Build: OK
+          - Testes: OK
+          - Empacotamento Maven: OK
+          
+          ### 📋 Checklist
+          - [ ] Código revisado
+          - [ ] Testes adicionados/atualizados
+          - [ ] Documentação atualizada
+          - [ ] Sem breaking changes
+          
+          ### 🔗 Relacionado a
+          - Branch: $BRANCH_NAME
+          - Desenvolvido automaticamente pelo GitHub Actions
+          
+          ---
+          Aberta automaticamente quando ocorre push em feature/*" \
+            || {
+              echo "Não foi possível criar o PR. Verificando se já existe..."
+              gh pr list \
+                --repo "$REPOSITORY" \
+                --base main \
+                --head "$BRANCH_NAME"
+            }
